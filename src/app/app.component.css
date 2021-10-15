@@ -1,0 +1,22 @@
+.ui-tree {
+    width: 100% !important;
+}
+
+button {
+    background-color: #04AA6D;
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    padding: 6px 15px;
+    margin-top: 4px;
+    border-radius: 5px;
+    margin: 5px;
+  }
+
+  
+  :host ::ng-deep .ui-tree .ui-treenode-children {
+    margin: 10;
+    padding: 0;
+    border: 2px solid rgb(179, 55, 96);
+    border-radius: 15px;
+}

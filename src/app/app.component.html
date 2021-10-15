@@ -1,0 +1,114 @@
+<style>
+  :host ::ng-deep .ui-tree.my-tree {
+    width: 100%;
+  }
+</style>
+
+<h1>Dynamic Form</h1>
+
+<div>
+  Name For Section <input #newSection name='newSection' />
+  <button (click)="addSection(newSection.value)">Add Section</button>
+</div>
+
+<p-tree [value]="files1" [styleClass]="'my-tree'" animate="true" dropRestrict="sibling" [draggableNodes]="true"
+  [droppableNodes]="true" draggableScope="self" droppableScope="self" (onNodeDrop)="onDrop($event)">
+  <ng-template let-node pTemplate="default">
+    {{node['label']}}
+  </ng-template>
+
+  <ng-template let-node pTemplate="subNode">
+
+    <div class="myTextbox" style="border: 2px solid rgb(97, 88, 88) ; border-radius: 20px;padding: 15px;">
+      {{node['title']}}
+      <br>
+      <div *ngIf="node['data'] != null">
+        <div *ngFor="let answers of node['data']['options']">
+          <input type="radio" name="{{node['key']}}">{{answers.answerText}}<br>
+        </div>
+      </div>
+      <input #newAnswer name='newAnswer'>
+      <button (click)="addAnswer(newAnswer.value,node['key'])">Add Answer</button>
+    </div>
+
+  </ng-template>
+
+
+  <ng-template let-node pTemplate="sectionCreate">
+    <div class="myTextbox" style="border: 2px solid rgb(189, 58, 58) ;
+ border-radius: 20px;padding: 15px;">
+      <h1>{{node['label']}}</h1>
+      <br>
+      Name For SubSection <input #newSubSection name='newSubSection' /> 
+      <button (click)="addSubSection(newSubSection.value,node['key'])">Add Sub Section</button>
+      <hr>
+      Name For Question   <input #newQuestion name='newQuestion' />
+      <button (click)="addSubQuestion(newQuestion.value,node['key'])">Add Question</button>
+    </div>
+
+  </ng-template>
+
+
+
+  <ng-template let-node pTemplate="lastSection">
+
+    <div class="myTextbox" style="border: 2px solid rgb(27, 65, 136) ;
+  border-radius: 20px;padding: 15px;">
+      <h1>{{node['label']}}</h1>
+      <br>
+      Name For Question  <input #newQuestionLast name='newQuestionLast' /> 
+      <button (click)="addSubQuestionForLastSection(newQuestionLast.value,node['key'])">Add Question</button>
+    </div>
+
+  </ng-template>
+
+</p-tree>
+
+<button (click)="save()">Save</button>
+
+
+
+<!-- {{node|json}} -->
+<!-- <p-card header="{{node['label']}}" [style]="{ 'margin-bottom': '2em'}">
+      <label for="fname">First name:</label><br>
+      <input type="text" id="fname" name="fname" value="John"><br>
+      <label for="lname">Last name:</label><br>
+      <input type="text" id="lname" name="lname" value="Doe"><br><br>
+      <input type="submit" value="Submit">
+    </p-card>
+ -->
+
+
+<!-- onDragStart="return false;"
+onDragEnter="return false;"
+onDragOver="return false;"
+onDrop="return false;" -->
+
+<!-- 
+<p-tree #tree 
+selectionMode="single"
+droppableNodes="true" 
+draggableNodes="true"
+[validateDrop]="true" 
+[contextMenu]="cm" 
+[value]="companyTree"
+[(selection)]="selectedNode" 
+(onNodeSelect)="nodeSelect($event)" 
+(onNodeContextMenuSelect)="nodeContextMenuSelect($event)"
+(onNodeDrop)="onDrop($event)"> -->
+
+<!-- 
+<p-tree [value]="cars" selectionMode="single"  [draggableNodes]="true">
+  <ng-template let-node pTemplate="default">
+    <div class="tree_{{node.id}}" 
+    pDraggable="dragNode" 
+    (onDragStart)="dragStart($event,node)" 
+    (onDragEnd)="dragEnd($event)">{{node.label}}</div>
+  </ng-template>
+</p-tree>
+
+<div class="drop" pDroppable="dragNode"
+ (onDrop)="dropMethod($event)" 
+ (onDragLeave)="dragLeaveDrop($event)" 
+ (onDragEnter)="dragEnterDrop($event)">
+</div> -->
